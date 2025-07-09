@@ -21,6 +21,19 @@ class NotebooksController < ApplicationController
     end
   end
 
+    def edit
+    @notebook = Notebook.find(params[:id])
+  end
+
+  def update
+    @notebook = Notebook.find(params[:id])
+    if @notebook.update(notebook_params)
+      redirect_to @notebook, notice: 'Notebook atualizado com sucesso!'
+    else
+      render :edit, status: :unprocessable_entity
+    end
+  end
+
   private
   def notebook_params
     params.require(:notebook).permit(

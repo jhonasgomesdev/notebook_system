@@ -1,6 +1,7 @@
 <h1>Lista de Notebooks</h1>
 
 <table>
+  <%= link_to "Cadastrar Novo Notebook", new_notebook_path %>
   <thead>
     <tr>
       <th>Identificação do Equipamento</th>
@@ -9,7 +10,6 @@
       <th>Ações</th>
     </tr>
   </thead>
-  <%= link_to "Cadastrar Novo Notebook", new_notebook_path %>
   <hr>
   <tbody>
     <% @notebooks.each do |notebook| %>
@@ -17,7 +17,10 @@
         <td><%= notebook.identificacao_equipamento %></td>
         <td><%= notebook.numero_patrimonio %></td>
         <td><%= notebook.estado %></td>
-        <td><%= link_to 'Ver Detalhes', notebook_path(notebook) %></td>
+        <td>
+          <%= link_to 'Ver Detalhes', notebook_path(notebook) %> |
+          <%= link_to 'Editar', edit_notebook_path(notebook) %>
+        </td>
       </tr>
     <% end %>
   </tbody>
