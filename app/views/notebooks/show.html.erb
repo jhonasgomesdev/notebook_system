@@ -1,0 +1,14 @@
+<h1>Detalhes do Notebook: <%= @notebook.identificacao_equipamento %></h1>
+
+<p><strong>Marca:</strong> <%= @notebook.marca %></p>
+<p><strong>Modelo:</strong> <%= @notebook.modelo %></p>
+<p><strong>Número de Patrimônio:</strong> <%= @notebook.numero_patrimonio %></p>
+<p><strong>Número de Série:</strong> <%= @notebook.numero_serie %></p>
+<p><strong>Data da Compra:</strong> <%= @notebook.data_compra %></p>
+<p><strong>Data de Fabricação:</strong> <%= @notebook.data_fabricacao %></p>
+<p><strong>Descrição:</strong> <%= @notebook.descricao %></p>
+<p><strong>Estado:</strong> <%= @notebook.estado %></p>
+
+<hr>
+
+<%= link_to 'Voltar para a Lista', notebooks_path %>

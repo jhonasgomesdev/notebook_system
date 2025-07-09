@@ -22,7 +22,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_09_162552) do
     t.string "identificacao_equipamento"
     t.date "data_compra"
     t.date "data_fabricacao"
-    t.text "decricao"
+    t.text "descricao"
     t.string "estado"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

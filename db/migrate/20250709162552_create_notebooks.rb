@@ -8,7 +8,7 @@ class CreateNotebooks < ActiveRecord::Migration[8.0]
       t.string :identificacao_equipamento
       t.date :data_compra
       t.date :data_fabricacao
-      t.text :decricao
+      t.text :descricao
       t.string :estado
 
       t.timestamps

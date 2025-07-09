@@ -1,0 +1,22 @@
+<h1>Lista de Notebooks</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Identificação do Equipamento</th>
+      <th>Número de Patrimônio</th>
+      <th>Estado Atual</th>
+      <th>Ações</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @notebooks.each do |notebook| %>
+      <tr>
+        <td><%= notebook.identificacao_equipamento %></td>
+        <td><%= notebook.numero_patrimonio %></td>
+        <td><%= notebook.estado %></td>
+        <td><%= link_to 'Ver Detalhes', notebook_path(notebook) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
