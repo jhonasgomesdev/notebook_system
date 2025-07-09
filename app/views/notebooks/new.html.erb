@@ -1,0 +1,61 @@
+<h1>Cadastrar Novo Notebook</h1>
+
+<%= form_with(model: @notebook) do |form| %>
+  <% if @notebook.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(@notebook.errors.count, "erro") %> impediu este notebook de ser salvo:</h2>
+      <ul>
+        <% @notebook.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :marca %><br>
+    <%= form.text_field :marca %>
+  </div>
+
+  <div>
+    <%= form.label :modelo %><br>
+    <%= form.text_field :modelo %>
+  </div>
+
+  <div>
+    <%= form.label :numero_patrimonio, "Número de Patrimônio" %><br>
+    <%= form.text_field :numero_patrimonio %>
+  </div>
+
+  <div>
+    <%= form.label :numero_serie, "Número de Série" %><br>
+    <%= form.text_field :numero_serie %>
+  </div>
+
+  <div>
+    <%= form.label :identificacao_equipamento, "Identificação do Equipamento" %><br>
+    <%= form.text_field :identificacao_equipamento %>
+  </div>
+
+  <div>
+    <%= form.label :data_compra, "Data da Compra" %><br>
+    <%= form.date_field :data_compra %>
+  </div>
+
+  <div>
+    <%= form.label :data_fabricacao, "Data de Fabricação (Opcional)" %><br>
+    <%= form.date_field :data_fabricacao %>
+  </div>
+
+  <div>
+    <%= form.label :descricao, "Descrição (Opcional)" %><br>
+    <%= form.text_area :descricao %>
+  </div>
+
+  <div>
+    <%= form.submit "Salvar Notebook" %>
+  </div>
+<% end %>
+
+<hr>
+<%= link_to "Voltar para a lista", notebooks_path %>

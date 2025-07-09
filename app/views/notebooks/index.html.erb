@@ -9,6 +9,8 @@
       <th>Ações</th>
     </tr>
   </thead>
+  <%= link_to "Cadastrar Novo Notebook", new_notebook_path %>
+  <hr>
   <tbody>
     <% @notebooks.each do |notebook| %>
       <tr>
