@@ -8,7 +8,7 @@ one:
   identificacao_equipamento: MyString
   data_compra: 2025-07-09
   data_fabricacao: 2025-07-09
-  decricao: MyText
+  descricao: MyText
   estado: MyString
 
 two:
@@ -19,5 +19,5 @@ two:
   identificacao_equipamento: MyString
   data_compra: 2025-07-09
   data_fabricacao: 2025-07-09
-  decricao: MyText
+  descricao: MyText
   estado: MyString
