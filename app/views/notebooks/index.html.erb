@@ -19,7 +19,8 @@
         <td><%= notebook.estado %></td>
         <td>
           <%= link_to 'Ver Detalhes', notebook_path(notebook) %> |
-          <%= link_to 'Editar', edit_notebook_path(notebook) %>
+          <%= link_to 'Editar', edit_notebook_path(notebook) %> |
+          <%= button_to 'Excluir', notebook_path(notebook), method: :delete, form: { data: { turbo_confirm: 'Você tem certeza que deseja excluir?' } } %>
         </td>
       </tr>
     <% end %>

@@ -17,7 +17,7 @@ class NotebooksController < ApplicationController
     if @notebook.save
       redirect_to @notebook, notice: 'Notebook cadastrado com sucesso!.'
     else
-      render :new, ststus: :unprocessable_entity
+      render :new, status: :unprocessable_entity
     end
   end
 
@@ -34,12 +34,23 @@ class NotebooksController < ApplicationController
     end
   end
 
+  def destroy
+    @notebook = Notebook.find(params[:id])
+
+    if @notebook.estado == 'disponível' && !@notebook.foi_emprestado
+      @notebook.destroy
+      redirect_to notebooks_path, notice: "Notebook excluído com sucesso."
+    else
+      redirect_to @notebook, alert: "Este notebook não pode ser excluído, pois não está 'disponível' ou já foi emprestado anteriormente."
+    end
+  end
+
   private
   def notebook_params
     params.require(:notebook).permit(
       :marca, :modelo, :numero_patrimonio, :numero_serie,
       :identificacao_equipamento, :data_compra, :data_fabricacao,
-      :descricao, :estado
+      :descricao, :estado, :foi_emprestado
     )
   end
 end

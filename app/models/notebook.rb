@@ -6,4 +6,12 @@ class Notebook < ApplicationRecord
   validates :numero_patrimonio, uniqueness: true
   validates :numero_serie, uniqueness: true
   validates :identificacao_equipamento, uniqueness: true
+
+  before_update :marcar_se_foi_emrestado
+  private
+  def marcar_se_foi_emrestado
+    if estado_changed? && estado == 'emprestado'
+      self.foi_emprestado = true
+    end
+  end
 end

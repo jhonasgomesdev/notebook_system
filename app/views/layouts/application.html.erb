@@ -19,9 +19,19 @@
 
     <%# Includes all stylesheet files in app/assets/stylesheets %>
     <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
+    <%# Includes all JavaScript files in app/assets/javascripts %>
+    <%= javascript_importmap_tags %>
   </head>
 
   <body>
+    <%# Bloco para exibir as flash messages %>
+    <% if notice %>
+      <p style="color: green;"><%= notice %></p>
+    <% end %>
+    <% if alert %>
+      <p style="color: red;"><%= alert %></p>
+    <% end %>
+
     <%= yield %>
   </body>
 </html>
