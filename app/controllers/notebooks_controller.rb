@@ -13,9 +13,9 @@ class NotebooksController < ApplicationController
 
   def create
     @notebook = Notebook.new(notebook_params)
-    @notebook.estado = 'disponível' # Define o estado padrão como 'Disponível'
+    @notebook.estado = "disponível" # Define o estado padrão como 'Disponível'
     if @notebook.save
-      redirect_to @notebook, notice: 'Notebook cadastrado com sucesso!.'
+      redirect_to @notebook, notice: "Notebook cadastrado com sucesso!."
     else
       render :new, status: :unprocessable_entity
     end
@@ -28,7 +28,7 @@ class NotebooksController < ApplicationController
   def update
     @notebook = Notebook.find(params[:id])
     if @notebook.update(notebook_params)
-      redirect_to @notebook, notice: 'Notebook atualizado com sucesso!'
+      redirect_to @notebook, notice: "Notebook atualizado com sucesso!"
     else
       render :edit, status: :unprocessable_entity
     end
@@ -37,7 +37,7 @@ class NotebooksController < ApplicationController
   def destroy
     @notebook = Notebook.find(params[:id])
 
-    if @notebook.estado == 'disponível' && !@notebook.foi_emprestado
+    if @notebook.estado == "disponível" && !@notebook.foi_emprestado
       @notebook.destroy
       redirect_to notebooks_path, notice: "Notebook excluído com sucesso."
     else
