@@ -1,4 +1,9 @@
 class Notebook < ApplicationRecord
+
+  has_many :emprestimos
+  has_many :colaboradores
+  enum :estado, { disponivel: 0, emprestado: 1, indisponivel: 2 }
+
   # Validando os campos obrigatórios
   validates :marca, :modelo, :numero_patrimonio, :numero_serie, :identificacao_equipamento, :data_compra, presence: true
 
@@ -7,10 +12,14 @@ class Notebook < ApplicationRecord
   validates :numero_serie, uniqueness: true
   validates :identificacao_equipamento, uniqueness: true
 
-  before_update :marcar_se_foi_emrestado
+  def emprestimo_atual
+    emprestimos.where(data_devolucao: nil).order(created_at: :desc).first
+  end
+  
+  before_update :marcar_se_foi_emprestado
   private
-  def marcar_se_foi_emrestado
-    if estado_changed? && estado == "emprestado"
+  def marcar_se_foi_emprestado
+    if will_save_change_to_estado? && emprestado?
       self.foi_emprestado = true
     end
   end

@@ -1,0 +1,25 @@
+<h1>Registrar Devolução do Notebook: <%= @notebook.identificacao_equipamento %></h1>
+
+<p>
+  <strong>Emprestado para:</strong> <%= @emprestimo.colaborador.nome %>
+</p>
+
+<%= form_with(model: @emprestimo, url: notebook_emprestimo_path(@notebook, @emprestimo)) do |form| %>
+
+  <div class="field">
+    <%= form.label :data_devolucao %><br>
+    <%= form.date_field :data_devolucao %>
+  </div>
+
+  <div class="field">
+    <%= form.label :motivo_devolucao, "Motivo da Devolução" %><br>
+    <%= form.text_area :motivo_devolucao %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit "Confirmar Devolução" %>
+  </div>
+<% end %>
+
+<hr>
+<%= link_to "Cancelar", @notebook %>

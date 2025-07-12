@@ -1,5 +1,35 @@
 <h1>Detalhes do Notebook: <%= @notebook.identificacao_equipamento %></h1>
 
+<p>
+  <strong>Estado:</strong> <%= @notebook.estado.humanize %>
+</p>
+
+<%# --- Bloco de Status do Empréstimo --- %>
+<%# Se o notebook estiver emprestado, mostre os detalhes do empréstimo atual %>
+<% if @notebook.emprestado? && @notebook.emprestimo_atual %>
+  <div style="border: 1px solid orange; padding: 10px; margin-bottom: 20px;">
+    <h3>Status: Emprestado</h3>
+    <p>
+      <strong>Colaborador:</strong> <%= @notebook.emprestimo_atual.colaborador.nome %><br>
+      <strong>Setor:</strong> <%= @notebook.emprestimo_atual.colaborador.setor %><br>
+      <strong>Data do Empréstimo:</strong> <%= l @notebook.emprestimo_atual.data_emprestimo, format: :long %>
+    </p>
+    <%# TODO: Adicionar o link para a devolução aqui no futuro %>
+    <p><strong>Ação:</strong>
+        <%= link_to 'Registrar Devolução', edit_notebook_emprestimo_path(@notebook, @notebook.emprestimo_atual) %>
+    </p>
+  </div>
+<%# Se estiver disponível, mostre o link para realizar um novo empréstimo %>
+<% elsif @notebook.disponivel? %>
+  <div style="border: 1px solid green; padding: 10px; margin-bottom: 20px;">
+    <h3>Status: Disponível</h3>
+    <p><%= link_to 'Realizar Novo Empréstimo', new_notebook_emprestimo_path(@notebook) %></p>
+  </div>
+<% end %>
+<%# --- Fim do Bloco de Status --- %>
+
+
+<h2>Informações do Equipamento</h2>
 <p><strong>Marca:</strong> <%= @notebook.marca %></p>
 <p><strong>Modelo:</strong> <%= @notebook.modelo %></p>
 <p><strong>Número de Patrimônio:</strong> <%= @notebook.numero_patrimonio %></p>
@@ -7,9 +37,37 @@
 <p><strong>Data da Compra:</strong> <%= @notebook.data_compra %></p>
 <p><strong>Data de Fabricação:</strong> <%= @notebook.data_fabricacao %></p>
 <p><strong>Descrição:</strong> <%= @notebook.descricao %></p>
-<p><strong>Estado:</strong> <%= @notebook.estado %></p>
 
 <hr>
 
-<%= link_to "Editar este notebook", edit_notebook_path(@notebook) %>
+<h2>Histórico de Empréstimos</h2>
+<% if @notebook.emprestimos.any? %>
+  <table border="1" style="width:100%; border-collapse: collapse;">
+    <thead>
+      <tr>
+        <th style="padding: 8px; text-align: left;">Colaborador</th>
+        <th style="padding: 8px; text-align: left;">Setor</th>
+        <th style="padding: 8px; text-align: left;">Data do Empréstimo</th>
+        <th style="padding: 8px; text-align: left;">Data da Devolução</th>
+      </tr>
+    </thead>
+    <tbody>
+      <%# Ordena os empréstimos do mais recente para o mais antigo %>
+      <% @notebook.emprestimos.order(data_emprestimo: :desc).each do |emprestimo| %>
+        <tr>
+          <td style="padding: 8px;"><%= emprestimo.colaborador.nome %></td>
+          <td style="padding: 8px;"><%= emprestimo.colaborador.setor %></td>
+          <td style="padding: 8px;"><%= l emprestimo.data_emprestimo, format: :long if emprestimo.data_emprestimo %></td>
+          <td style="padding: 8px;"><%= l emprestimo.data_devolucao, format: :long if emprestimo.data_devolucao %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <p>Este notebook nunca foi emprestado.</p>
+<% end %>
+
+<hr>
+
+<%= link_to "Editar este notebook", edit_notebook_path(@notebook) %> |
 <%= link_to 'Voltar para a Lista', notebooks_path %>

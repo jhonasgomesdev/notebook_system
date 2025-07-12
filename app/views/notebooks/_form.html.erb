@@ -53,7 +53,7 @@
   <% if notebook.persisted? %>
     <div>
       <%= form.label :estado, "Estado Atual" %><br>
-      <%= form.select :estado, ['disponível', 'emprestado', 'indisponível'] %>
+      <%= form.select :estado, Notebook.estados.keys.map { |estado| [estado.humanize, estado] } %>
     </div>
   <% end %>
 

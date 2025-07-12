@@ -10,9 +10,28 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_07_10_005604) do
+ActiveRecord::Schema[8.0].define(version: 2025_07_11_213749) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
+
+  create_table "colaboradors", force: :cascade do |t|
+    t.string "nome"
+    t.string "setor"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "emprestimos", force: :cascade do |t|
+    t.bigint "notebook_id", null: false
+    t.bigint "colaborador_id", null: false
+    t.date "data_emprestimo"
+    t.date "data_devolucao"
+    t.text "motivo_devolucao"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["colaborador_id"], name: "index_emprestimos_on_colaborador_id"
+    t.index ["notebook_id"], name: "index_emprestimos_on_notebook_id"
+  end
 
   create_table "notebooks", force: :cascade do |t|
     t.string "marca"
@@ -23,9 +42,12 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_10_005604) do
     t.date "data_compra"
     t.date "data_fabricacao"
     t.text "descricao"
-    t.string "estado"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "foi_emprestado", default: false, null: false
+    t.integer "estado"
   end
+
+  add_foreign_key "emprestimos", "colaboradors"
+  add_foreign_key "emprestimos", "notebooks"
 end

@@ -1,0 +1,26 @@
+<h1>Realizar Empréstimo para: <%= @notebook.identificacao_equipamento %></h1>
+
+<%= form_with(model: @emprestimo, url: notebook_emprestimos_path(@notebook)) do |form| %>
+  <%# Campos para os dados do colaborador, que não estão no modelo @emprestimo %>
+  <div class="field">
+    <%= label_tag "emprestimo[nome_colaborador]", "Nome do Colaborador" %><br>
+    <%= text_field_tag "emprestimo[nome_colaborador]" %>
+  </div>
+
+  <div class="field">
+    <%= label_tag "emprestimo[setor]", "Setor" %><br>
+    <%= text_field_tag "emprestimo[setor]" %>
+  </div>
+
+  <%# Campo do modelo @emprestimo %>
+  <div class="field">
+    <%= form.label :data_emprestimo %><br>
+    <%= form.date_field :data_emprestimo %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit "Confirmar Empréstimo" %>
+  </div>
+<% end %>
+
+<%= link_to "Cancelar", @notebook %>
