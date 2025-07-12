@@ -13,7 +13,7 @@
     
     <div>
       <%= form.label :estado, "Filtrar por Estado" %>
-      <%= form.select :estado, Notebook.estados.keys.map { |e| [e.humanize, e] }, { include_blank: 'Todos os estados' }, { value: params[:estado] } %>
+      <%= form.select :estado, Notebook.estados.keys.compact.map { |e| [e.humanize, e] }, { include_blank: 'Todos os estados' }, { value: params[:estado] } %>
     </div>
     
     <div>
@@ -57,7 +57,7 @@
       <tr>
         <td><%= notebook.identificacao_equipamento %></td>
         <td><%= notebook.numero_patrimonio %></td>
-        <td><%= notebook.estado.humanize %></td>
+        <td><%= notebook.estado.present? ? notebook.estado.humanize : '-' %></td>
         <td>
           <% if notebook.emprestado? && notebook.emprestimo_atual %>
             <%= notebook.emprestimo_atual.colaborador.nome %>
