@@ -1,0 +1,21 @@
+<h1>Detalhes do Colaborador</h1>
+
+<p>
+  <strong>ID:</strong>
+  <%= @colaborador.id %>
+</p>
+
+<p>
+  <strong>Nome:</strong>
+  <%= @colaborador.nome %>
+</p>
+
+<p>
+  <strong>Setor:</strong>
+  <%= @colaborador.setor %>
+</p>
+
+<hr>
+
+<%= link_to 'Editar', edit_colaborador_path(@colaborador) %> |
+<%= link_to 'Voltar para a lista', colaboradores_path %>

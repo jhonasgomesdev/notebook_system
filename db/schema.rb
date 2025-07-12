@@ -10,11 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_07_11_213749) do
+ActiveRecord::Schema[8.0].define(version: 2025_07_12_023406) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
-  create_table "colaboradors", force: :cascade do |t|
+  create_table "colaboradores", force: :cascade do |t|
     t.string "nome"
     t.string "setor"
     t.datetime "created_at", null: false
@@ -46,8 +46,10 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_11_213749) do
     t.datetime "updated_at", null: false
     t.boolean "foi_emprestado", default: false, null: false
     t.integer "estado"
+    t.date "data_baixa"
+    t.text "justificativa_baixa"
   end
 
-  add_foreign_key "emprestimos", "colaboradors"
+  add_foreign_key "emprestimos", "colaboradores"
   add_foreign_key "emprestimos", "notebooks"
 end

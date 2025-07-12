@@ -1,0 +1,21 @@
+<h1>Baixar Notebook: <%= @notebook.identificacao_equipamento %></h1>
+
+<%= form_with(model: @notebook, url: realizar_baixa_notebook_path(@notebook), method: :patch) do |form| %>
+
+  <div class="field">
+    <%= form.label :data_baixa %><br>
+    <%= form.date_field :data_baixa %>
+  </div>
+
+  <div class="field">
+    <%= form.label :justificativa_baixa, "Justificativa da Baixa" %><br>
+    <%= form.text_area :justificativa_baixa, rows: 4, style: "width: 50%;" %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit "Confirmar Baixa do Equipamento" %>
+  </div>
+<% end %>
+
+<hr>
+<%= link_to "Cancelar", @notebook %>

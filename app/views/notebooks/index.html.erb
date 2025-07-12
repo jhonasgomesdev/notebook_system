@@ -1,7 +1,49 @@
 <h1>Lista de Notebooks</h1>
 
-<table>
+<p>
   <%= link_to "Cadastrar Novo Notebook", new_notebook_path %>
+</p>
+
+<%= form_with(url: notebooks_path, method: :get) do |form| %>
+  <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 20px;">
+    <div>
+      <%= form.label :query, "Buscar por Identificação, Série ou Patrimônio" %>
+      <%= form.text_field :query, value: params[:query] %>
+    </div>
+    
+    <div>
+      <%= form.label :estado, "Filtrar por Estado" %>
+      <%= form.select :estado, Notebook.estados.keys.map { |e| [e.humanize, e] }, { include_blank: 'Todos os estados' }, { value: params[:estado] } %>
+    </div>
+    
+    <div>
+      <%= form.label :colaborador_id, "Filtrar por Colaborador" %>
+      <%= form.collection_select :colaborador_id, Colaborador.order(:nome), :id, :nome, { include_blank: 'Todos' }, { value: params[:colaborador_id] } %>
+    </div>
+
+    <div>
+      <%= form.label :setor, "Filtrar por Setor" %><br>
+      <%= form.select :setor, Colaborador.distinct.pluck(:setor).sort, { include_blank: 'Todos' }, { value: params[:setor] } %>
+    </div>
+
+    <div>
+      <%= form.label :data_compra_de, "Comprado de:" %><br>
+      <%= form.date_field :data_compra_de, value: params[:data_compra_de] %>
+    </div>
+
+    <div>
+      <%= form.label :data_compra_ate, "Até:" %><br>
+      <%= form.date_field :data_compra_ate, value: params[:data_compra_ate] %>
+    </div>
+    
+    <%= form.submit "Buscar" %>
+    <%= link_to "Limpar Busca", notebooks_path %>
+  </div>
+<% end %>
+
+<hr>
+
+<table>
   <thead>
     <tr>
       <th>Identificação do Equipamento</th>
@@ -10,13 +52,19 @@
       <th>Ações</th>
     </tr>
   </thead>
-  <hr>
   <tbody>
     <% @notebooks.each do |notebook| %>
       <tr>
         <td><%= notebook.identificacao_equipamento %></td>
         <td><%= notebook.numero_patrimonio %></td>
-        <td><%= notebook.estado %></td>
+        <td><%= notebook.estado.humanize %></td>
+        <td>
+          <% if notebook.emprestado? && notebook.emprestimo_atual %>
+            <%= notebook.emprestimo_atual.colaborador.nome %>
+          <% else %>
+            -
+          <% end %>
+        </td>
         <td>
           <%= link_to 'Ver Detalhes', notebook_path(notebook) %> |
           <%= link_to 'Editar', edit_notebook_path(notebook) %> |

@@ -1,6 +1,13 @@
 Rails.application.routes.draw do
+  resources :colaboradores, only: [ :index, :show, :new, :create, :edit, :update, :destroy ]
+
   resources :notebooks do
     resources :emprestimos, only: [ :new, :create, :edit, :update ]
+
+    member do
+      get "baixa"
+      patch "realizar_baixa"
+    end
   end
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html

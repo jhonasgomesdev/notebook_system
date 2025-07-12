@@ -1,0 +1,13 @@
+<%= form_with(model: colaborador) do |form| %>
+  <div class="field">
+    <%= form.label :nome %><br>
+    <%= form.text_field :nome %>
+  </div>
+  <div class="field">
+    <%= form.label :setor %><br>
+    <%= form.text_field :setor %>
+  </div>
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

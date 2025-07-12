@@ -1,6 +1,6 @@
-class CreateColaboradors < ActiveRecord::Migration[8.0]
+class CreateColaboradores < ActiveRecord::Migration[8.0]
   def change
-    create_table :colaboradors do |t|
+    create_table :colaboradores do |t|
       t.string :nome
       t.string :setor
 

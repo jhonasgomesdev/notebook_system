@@ -6,9 +6,7 @@ class EmprestimosController < ApplicationController
   end
 
   def create
-    colaborador = Colaborador.find_or_create_by(nome: emprestimo_params[:nome_colaborador], setor: emprestimo_params[:setor])
-
-    @emprestimo = @notebook.emprestimos.new(data_emprestimo: emprestimo_params[:data_emprestimo], colaborador: colaborador)
+    @emprestimo = @notebook.emprestimos.new(emprestimo_params)
 
     ActiveRecord::Base.transaction do
       @emprestimo.save!
@@ -47,7 +45,7 @@ class EmprestimosController < ApplicationController
   end
 
   def emprestimo_params
-    params.require(:emprestimo).permit(:data_emprestimo, :nome_colaborador, :setor)
+    params.require(:emprestimo).permit(:data_emprestimo, :colaborador_id)
   end
 
   def devolucao_params

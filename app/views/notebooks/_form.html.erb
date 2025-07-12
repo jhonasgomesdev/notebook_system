@@ -50,13 +50,6 @@
     <%= form.text_area :descricao %>
   </div>
 
-  <% if notebook.persisted? %>
-    <div>
-      <%= form.label :estado, "Estado Atual" %><br>
-      <%= form.select :estado, Notebook.estados.keys.map { |estado| [estado.humanize, estado] } %>
-    </div>
-  <% end %>
-
   <div>
     <%= form.submit "Salvar Notebook" %>
   </div>

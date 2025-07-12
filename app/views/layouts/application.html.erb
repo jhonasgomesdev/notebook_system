@@ -32,6 +32,12 @@
       <p style="color: red;"><%= alert %></p>
     <% end %>
 
+    <nav>
+      <%= link_to 'Notebooks', notebooks_path %> |
+      <%= link_to 'Colaboradores', colaboradores_path %>
+    </nav>
+    <hr>
+
     <%= yield %>
   </body>
 </html>

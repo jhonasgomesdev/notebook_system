@@ -1,0 +1,22 @@
+<h1>Colaboradores</h1>
+<%= link_to 'Novo Colaborador', new_colaborador_path %>
+<table>
+  <thead>
+    <tr>
+      <th>Nome</th>
+      <th>Setor</th>
+      <th colspan="2"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @colaboradores.each do |colaborador| %>
+      <tr>
+        <td><%= colaborador.nome %></td>
+        <td><%= colaborador.setor %></td>
+        <td><%= link_to 'Ver Detalhes', colaborador_path(colaborador) %></td>
+        <td><%= link_to 'Editar', edit_colaborador_path(colaborador) %></td>
+        <td><%= button_to 'Excluir', colaborador_path(colaborador), method: :delete, form: { data: { turbo_confirm: 'Você tem certeza que deseja excluir?' } } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
