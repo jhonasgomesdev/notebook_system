@@ -17,7 +17,7 @@ class NotebooksControllerTest < ActionDispatch::IntegrationTest
       data_compra: Date.today,
       data_fabricacao: Date.today,
       descricao: "Test",
-      estado: "disponível",
+      estado: "disponivel",
       foi_emprestado: false
     )
 
