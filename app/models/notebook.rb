@@ -1,5 +1,4 @@
 class Notebook < ApplicationRecord
-
   has_many :emprestimos
   has_many :colaboradores
   enum :estado, { disponivel: 0, emprestado: 1, indisponivel: 2 }
@@ -15,7 +14,7 @@ class Notebook < ApplicationRecord
   def emprestimo_atual
     emprestimos.where(data_devolucao: nil).order(created_at: :desc).first
   end
-  
+
   before_update :marcar_se_foi_emprestado
   private
   def marcar_se_foi_emprestado
