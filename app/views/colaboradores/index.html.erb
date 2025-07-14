@@ -1,11 +1,14 @@
-<h1>Colaboradores</h1>
-<%= link_to 'Novo Colaborador', new_colaborador_path %>
-<table>
-  <thead>
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <h1 class="mb-0">Colaboradores</h1>
+  <%= link_to 'Novo Colaborador', new_colaborador_path, class: "btn btn-primary" %>
+</div>
+
+<table class="table table-hover table-striped">
+  <thead class="table-dark">
     <tr>
       <th>Nome</th>
       <th>Setor</th>
-      <th colspan="2"></th>
+      <th style="width: 280px;">Ações</th>
     </tr>
   </thead>
   <tbody>
@@ -13,9 +16,11 @@
       <tr>
         <td><%= colaborador.nome %></td>
         <td><%= colaborador.setor %></td>
-        <td><%= link_to 'Ver Detalhes', colaborador_path(colaborador) %></td>
-        <td><%= link_to 'Editar', edit_colaborador_path(colaborador) %></td>
-        <td><%= button_to 'Excluir', colaborador_path(colaborador), method: :delete, form: { data: { turbo_confirm: 'Você tem certeza que deseja excluir?' } } %></td>
+        <td>
+          <%= link_to 'Detalhes', colaborador, class: 'btn btn-sm btn-outline-primary' %>
+          <%= link_to 'Editar', edit_colaborador_path(colaborador), class: 'btn btn-sm btn-outline-primary' %>
+          <%= button_to 'Excluir', colaborador, method: :delete, class: 'btn btn-sm btn-outline-danger', form: { data: { turbo_confirm: 'Você tem certeza?' } } %>
+        </td>
       </tr>
     <% end %>
   </tbody>

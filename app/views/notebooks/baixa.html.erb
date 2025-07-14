@@ -1,21 +1,30 @@
-<h1>Baixar Notebook: <%= @notebook.identificacao_equipamento %></h1>
-
-<%= form_with(model: @notebook, url: realizar_baixa_notebook_path(@notebook), method: :patch) do |form| %>
-
-  <div class="field">
-    <%= form.label :data_baixa %><br>
-    <%= form.date_field :data_baixa %>
+<div class="card border-danger">
+  <div class="card-header bg-danger text-white">
+    <h1>Baixar Notebook: <%= @notebook.identificacao_equipamento %></h1>
   </div>
+  <div class="card-body">
+    <p class="card-text">Atenção: Esta ação mudará o estado do notebook para "indisponível" permanentemente.</p>
 
-  <div class="field">
-    <%= form.label :justificativa_baixa, "Justificativa da Baixa" %><br>
-    <%= form.text_area :justificativa_baixa, rows: 4, style: "width: 50%;" %>
+    <%= form_with(model: @notebook, url: realizar_baixa_notebook_path(@notebook), method: :patch) do |form| %>
+
+      <div class="mb-3">
+        <%= form.label :data_baixa, class: 'form-label' %>
+        <%= form.date_field :data_baixa, class: 'form-control' %>
+      </div>
+
+      <div class="mb-3">
+        <%= form.label :justificativa_baixa, "Justificativa da Baixa", class: 'form-label' %>
+        <%= form.text_area :justificativa_baixa, rows: 4, class: 'form-control' %>
+      </div>
+
+      <div class="actions mt-4">
+        <%= form.submit "Confirmar Baixa do Equipamento", class: 'btn btn-danger' %>
+      </div>
+
+    <% end %>
   </div>
+</div>
 
-  <div class="actions">
-    <%= form.submit "Confirmar Baixa do Equipamento" %>
-  </div>
-<% end %>
-
-<hr>
-<%= link_to "Cancelar", @notebook %>
+<div class="mt-3">
+  <%= link_to "Cancelar", @notebook, class: "btn btn-outline-secondary" %>
+</div>

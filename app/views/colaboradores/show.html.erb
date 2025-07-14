@@ -1,21 +1,73 @@
-<h1>Detalhes do Colaborador</h1>
+<div class="row">
+  <div class="col-md-7">
+    <div class="card">
+      <div class="card-header">
+        <h1><%= @colaborador.nome %></h1>
+      </div>
+      <div class="card-body">
+        <h5 class="card-title">Informações de Contato</h5>
+        <dl class="row">
+          <dt class="col-sm-3">ID</dt>
+          <dd class="col-sm-9"><%= @colaborador.id %></dd>
 
-<p>
-  <strong>ID:</strong>
-  <%= @colaborador.id %>
-</p>
+          <dt class="col-sm-3">Setor</dt>
+          <dd class="col-sm-9"><%= @colaborador.setor %></dd>
+        </dl>
+      </div>
+    </div>
+  </div>
 
-<p>
-  <strong>Nome:</strong>
-  <%= @colaborador.nome %>
-</p>
+  <div class="col-md-5">
+    <div class="card">
+      <div class="card-header">
+        Notebooks Emprestados Atualmente
+      </div>
+      <ul class="list-group list-group-flush">
+        <% if @colaborador.emprestimos_ativos.any? %>
+          <% @colaborador.emprestimos_ativos.each do |emprestimo| %>
+            <li class="list-group-item">
+              <%= link_to emprestimo.notebook.identificacao_equipamento, notebook_path(emprestimo.notebook) %>
+              <br>
+              <small class="text-muted">Desde: <%= l emprestimo.data_emprestimo, format: :short %></small>
+            </li>
+          <% end %>
+        <% else %>
+          <li class="list-group-item">Nenhum empréstimo ativo.</li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</div>
 
-<p>
-  <strong>Setor:</strong>
-  <%= @colaborador.setor %>
-</p>
+<div class="mt-4">
+  <h2>Histórico de Empréstimos</h2>
+  <% if @colaborador.emprestimos.any? %>
+    <table class="table table-sm table-striped">
+      <thead>
+        <tr>
+          <th>Notebook</th>
+          <th>Data do Empréstimo</th>
+          <th>Data da Devolução</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @colaborador.emprestimos.order(data_emprestimo: :desc).each do |emprestimo| %>
+          <tr>
+            <td><%= link_to emprestimo.notebook.identificacao_equipamento, emprestimo.notebook %></td>
+            <td><%= l emprestimo.data_emprestimo, format: :long if emprestimo.data_emprestimo %></td>
+            <td><%= l emprestimo.data_devolucao, format: :long if emprestimo.data_devolucao %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% else %>
+    <p class="text-muted">Este colaborador nunca realizou um empréstimo.</p>
+  <% end %>
+</div>
 
 <hr>
 
-<%= link_to 'Editar', edit_colaborador_path(@colaborador) %> |
-<%= link_to 'Voltar para a lista', colaboradores_path %>
+<div class="mt-3">
+  <%= link_to 'Editar Colaborador', edit_colaborador_path(@colaborador), class: "btn btn-outline-primary" %>
+  <%= link_to 'Voltar para a lista', colaboradores_path, class: "btn btn-outline-secondary" %>
+</div>

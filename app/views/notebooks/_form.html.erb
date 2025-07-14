@@ -1,56 +1,65 @@
-<%= form_with(model: @notebook) do |form| %>
-  <% if @notebook.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(@notebook.errors.count, "erro") %> impediu este notebook de ser salvo:</h2>
+<%= form_with(model: notebook) do |form| %>
+  <%# Bloco de erros agora usa o estilo de alerta do Bootstrap %>
+  <% if notebook.errors.any? %>
+    <div class="alert alert-danger">
+      <h2><%= pluralize(notebook.errors.count, "erro") %> impediu este notebook de ser salvo:</h2>
       <ul>
-        <% @notebook.errors.each do |error| %>
-          <li><%= error.full_message %></li>
+        <% notebook.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
         <% end %>
       </ul>
     </div>
   <% end %>
 
-  <div>
-    <%= form.label :marca %><br>
-    <%= form.text_field :marca %>
+  <%# Agrupando os campos com a classe mb-3 para dar espaçamento %>
+  <div class="mb-3">
+    <%= form.label :marca, class: 'form-label' %>
+    <%= form.text_field :marca, class: 'form-control' %>
   </div>
 
-  <div>
-    <%= form.label :modelo %><br>
-    <%= form.text_field :modelo %>
+  <div class="mb-3">
+    <%= form.label :modelo, class: 'form-label' %>
+    <%= form.text_field :modelo, class: 'form-control' %>
   </div>
 
-  <div>
-    <%= form.label :numero_patrimonio, "Número de Patrimônio" %><br>
-    <%= form.text_field :numero_patrimonio %>
+  <div class="mb-3">
+    <%= form.label :numero_patrimonio, "Número de Patrimônio", class: 'form-label' %>
+    <%= form.text_field :numero_patrimonio, class: 'form-control' %>
   </div>
 
-  <div>
-    <%= form.label :numero_serie, "Número de Série" %><br>
-    <%= form.text_field :numero_serie %>
+  <div class="mb-3">
+    <%= form.label :numero_serie, "Número de Série", class: 'form-label' %>
+    <%= form.text_field :numero_serie, class: 'form-control' %>
   </div>
 
-  <div>
-    <%= form.label :identificacao_equipamento, "Identificação do Equipamento" %><br>
-    <%= form.text_field :identificacao_equipamento %>
+  <div class="mb-3">
+    <%= form.label :identificacao_equipamento, "Identificação do Equipamento", class: 'form-label' %>
+    <%= form.text_field :identificacao_equipamento, class: 'form-control' %>
   </div>
 
-  <div>
-    <%= form.label :data_compra, "Data da Compra" %><br>
-    <%= form.date_field :data_compra %>
+  <div class="mb-3">
+    <%= form.label :data_compra, "Data da Compra", class: 'form-label' %>
+    <%= form.date_field :data_compra, class: 'form-control' %>
   </div>
 
-  <div>
-    <%= form.label :data_fabricacao, "Data de Fabricação (Opcional)" %><br>
-    <%= form.date_field :data_fabricacao %>
+  <div class="mb-3">
+    <%= form.label :data_fabricacao, "Data de Fabricação (Opcional)", class: 'form-label' %>
+    <%= form.date_field :data_fabricacao, class: 'form-control' %>
   </div>
 
-  <div>
-    <%= form.label :descricao, "Descrição (Opcional)" %><br>
-    <%= form.text_area :descricao %>
+  <div class="mb-3">
+    <%= form.label :descricao, "Descrição (Opcional)", class: 'form-label' %>
+    <%= form.text_area :descricao, class: 'form-control' %>
   </div>
 
-  <div>
-    <%= form.submit "Salvar Notebook" %>
+  <% if notebook.persisted? %>
+    <div class="mb-3">
+      <%= form.label :estado, "Estado Atual", class: 'form-label' %>
+      <%= form.select :estado, Notebook.estados.keys.map { |e| [e.humanize, e] }, {}, { class: 'form-select' } %>
+    </div>
+  <% end %>
+
+  <div class="actions mt-4">
+    <%= form.submit "Salvar Notebook", class: 'btn btn-primary' %>
   </div>
 <% end %>

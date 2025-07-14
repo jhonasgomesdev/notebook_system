@@ -1,6 +1,12 @@
-<h1>Cadastrar Novo Notebook</h1>
+<div class="card">
+  <div class="card-header">
+    <h1>Cadastrar Novo Notebook</h1>
+  </div>
+  <div class="card-body">
+    <%= render "form", notebook: @notebook %>
+  </div>
+</div>
 
-<%= render "form", notebook: @notebook %>
-
-<hr>
-<%= link_to "Voltar para a lista", notebooks_path %>
+<div class="mt-3">
+  <%= link_to "Voltar para a lista", notebooks_path, class: "btn btn-outline-secondary" %>
+</div>

@@ -19,6 +19,9 @@ gem "jbuilder"
 # Turbo's JavaScript library for Rails
 gem "turbo-rails"
 
+gem "bootstrap", "~> 5.3.3"
+gem "dartsass-rails"
+
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
 # gem "bcrypt", "~> 3.1.7"
 
@@ -61,6 +64,7 @@ end
 
 group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
+  gem "simplecov", require: false
   gem "capybara"
   gem "selenium-webdriver"
 end

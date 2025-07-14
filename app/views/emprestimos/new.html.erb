@@ -1,20 +1,28 @@
-<h1>Realizar Empréstimo para: <%= @notebook.identificacao_equipamento %></h1>
-
-<%= form_with(model: @emprestimo, url: notebook_emprestimos_path(@notebook)) do |form| %>
-
-  <div class="field">
-    <%# O dropdown para selecionar um colaborador existente %>
-    <%= form.label :colaborador_id, "Colaborador" %><br>
-    <%= form.collection_select :colaborador_id, Colaborador.order(:nome), :id, :nome, prompt: "Selecione um colaborador" %>
+<div class="card">
+  <div class="card-header">
+    <h1>Realizar Empréstimo para: <%= @notebook.identificacao_equipamento %></h1>
   </div>
+  <div class="card-body">
+    <%= form_with(model: @emprestimo, url: notebook_emprestimos_path(@notebook)) do |form| %>
 
-  <div class="field">
-    <%= form.label :data_emprestimo %><br>
-    <%= form.date_field :data_emprestimo %>
-  </div>
+      <div class="mb-3">
+        <%= form.label :colaborador_id, "Colaborador", class: 'form-label' %>
+        <%= form.collection_select :colaborador_id, Colaborador.order(:nome), :id, :nome, { prompt: "Selecione um colaborador" }, { class: 'form-select' } %>
+      </div>
 
-  <div class="actions">
-    <%= form.submit "Confirmar Empréstimo" %>
+      <div class="mb-3">
+        <%= form.label :data_emprestimo, class: 'form-label' %>
+        <%= form.date_field :data_emprestimo, class: 'form-control' %>
+      </div>
+
+      <div class="actions mt-4">
+        <%= form.submit "Confirmar Empréstimo", class: 'btn btn-primary' %>
+      </div>
+
+    <% end %>
   </div>
-<% end %>
-<%= link_to "Cancelar", @notebook %>
+</div>
+
+<div class="mt-3">
+  <%= link_to "Cancelar", @notebook, class: "btn btn-outline-secondary" %>
+</div>

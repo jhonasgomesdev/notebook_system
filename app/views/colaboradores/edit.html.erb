@@ -1,3 +1,13 @@
-<h1>Editando Colaborador</h1>
-<%= render 'form', colaborador: @colaborador %>
-<%= link_to 'Voltar', colaboradores_path %>
+<div class="card">
+  <div class="card-header">
+    <h1>Editando Colaborador</h1>
+  </div>
+  <div class="card-body">
+    <%= render 'form', colaborador: @colaborador %>
+  </div>
+</div>
+
+<div class="mt-3">
+  <%= link_to 'Ver Detalhes', @colaborador, class: "btn btn-outline-primary" %>
+  <%= link_to 'Voltar para a lista', colaboradores_path, class: "btn btn-outline-secondary" %>
+</div>

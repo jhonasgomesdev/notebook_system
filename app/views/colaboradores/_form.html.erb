@@ -1,13 +1,26 @@
 <%= form_with(model: colaborador) do |form| %>
-  <div class="field">
-    <%= form.label :nome %><br>
-    <%= form.text_field :nome %>
+  <% if colaborador.errors.any? %>
+    <div class="alert alert-danger">
+      <h2><%= pluralize(colaborador.errors.count, "erro") %> impediu este colaborador de ser salvo:</h2>
+      <ul>
+        <% colaborador.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="mb-3">
+    <%= form.label :nome, class: 'form-label' %>
+    <%= form.text_field :nome, class: 'form-control' %>
   </div>
-  <div class="field">
-    <%= form.label :setor %><br>
-    <%= form.text_field :setor %>
+
+  <div class="mb-3">
+    <%= form.label :setor, class: 'form-label' %>
+    <%= form.text_field :setor, class: 'form-control' %>
   </div>
-  <div class="actions">
-    <%= form.submit %>
+
+  <div class="actions mt-4">
+    <%= form.submit "Salvar Colaborador", class: 'btn btn-primary' %>
   </div>
 <% end %>
